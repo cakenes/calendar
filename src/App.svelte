@@ -39,6 +39,6 @@
         --blue: #4285f4;
         --highlight: #1a73e8;
 
-        font-family: "Google Sans", Roboto, Arial, sans-serif;
+        /* font-family: "Google Sans", Roboto, Arial, sans-serif; */
     }
 </style>

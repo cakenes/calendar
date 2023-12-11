@@ -15,11 +15,5 @@
         display: flex;
         flex-direction: row;
         background-color: var(--c1);
-
-        & div {
-            flex: 1;
-            margin: 1em;
-            background-color: var(--c2);
-        }
     }
 </style>
