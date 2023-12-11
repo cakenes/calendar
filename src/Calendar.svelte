@@ -4,6 +4,7 @@
     let date = new Date();
     let select = { day: 0, row: 0, offset: 0 };
     let client = { width: 0, height: 0 };
+    const cutoff = 1600;
 
     $: current = {
         day: new Date(date.getFullYear(), date.getMonth() + select.offset).getDay() - 1,
@@ -25,9 +26,11 @@
         month: Math.ceil((new Date(current.year, current.month, current.day).getTime() - new Date(current.year, 0, 1).getTime() + 86400000) / 86400000 / 7),
     };
 
+    $: isWideScreen = client.width >= cutoff && select.row ? true : false;
+
     $: stringCutOff = (input: string) => {
-        if (client.width <= 800) return input.substring(0, 1);
-        else if (client.width <= 1400) return input.substring(0, 3);
+        if (client.width <= cutoff / 3) return input.substring(0, 1);
+        else if (client.width <= cutoff) return input.substring(0, 3);
         return input;
     };
 
@@ -59,22 +62,20 @@
         {/each}
     </div>
 
-    <div class="calendar-grid" style="grid-template-rows: 3cqh repeat({select.row ? 7 : 5}, 1fr);">
+    <div class="calendar-grid" style="grid-template-rows: 3cqh repeat({isWideScreen ? 7 : 5}, 1fr);">
         <div class="corner" />
         {#each weekdays as w, i}
             <div class="weekday">
                 <div class={i == date.getDay() - 1 && !select.offset && "current"}>{stringCutOff(w)}</div>
             </div>
         {/each}
-
         {#each [2, 3, 4, 5, 6] as n, i}
-            <div class="week" style="grid-row: {select.row && select.row <= n ? n + 2 : n}/{select.row && select.row <= n ? n + 2 : n};">
+            <div class="week" style="grid-row: {isWideScreen && select.row <= n ? n + 2 : n}/{isWideScreen && select.row <= n ? n + 2 : n};">
                 <div class={i == week.current && !select.offset && "current"}>
                     {week.month + i}
                 </div>
             </div>
         {/each}
-
         {#each Array(35) as _, i}
             <div class="day">
                 {#if i < current.day}
@@ -106,11 +107,13 @@
                 {/if}
             </div>
         {/each}
-
-        {#if select.row}
-            <div style="grid-row: {select.row} / {select.row + 2}; grid-column: 1 / 9;"><Record /></div>
+        {#if isWideScreen}
+            <Record style="grid-row: {select.row} / {select.row + 2}; grid-column: 1 / 9;" />
         {/if}
     </div>
+    {#if !isWideScreen && select.row}
+        <Record style="flex: 1;" />
+    {/if}
 </div>
 
 <style>
@@ -118,7 +121,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        background-color: var(--c0);
+        background-color: var(--gray1);
         padding: 8cqw;
         gap: 2cqh;
     }
@@ -152,7 +155,6 @@
         column-gap: min(0.4cqh, 0.4cqw);
         row-gap: min(0.4cqh, 0.4cqw);
         margin-left: -2cqw;
-        transition: all 5s ease-in-out;
 
         & .day {
             flex: 1;
@@ -165,18 +167,23 @@
                 display: flex;
                 justify-content: flex-end;
                 font-size: 5em;
-                background-color: var(--c2);
-                border-radius: 0.2em;
+                background-color: var(--gray3);
+                border-radius: 1cqw;
             }
 
             & .selected {
-                font-weight: 300;
-                color: var(--c0);
-                background-color: var(--c3);
+                font-weight: 600;
+                text-shadow:
+                    -1px 0 var(--inactive),
+                    0 1px var(--inactive),
+                    1px 0 var(--inactive),
+                    0 -1px var(--inactive);
+                color: var(--gray1);
+                background-color: var(--gray4);
             }
 
             & :is(.prev, .next) {
-                background-color: var(--c1);
+                background-color: var(--gray2);
             }
         }
 
@@ -206,7 +213,7 @@
     }
 
     .current {
-        font-weight: 300 !important;
+        font-weight: 200 !important;
         color: var(--blue) !important;
     }
 </style>

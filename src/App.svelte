@@ -23,12 +23,10 @@
         -ms-user-select: none;
         user-select: none;
 
-        --c0: #222222;
-        --c1: #282828;
-        --c2: #383838;
-        --c3: #3e4143;
-        --white: #ffffff;
-        --c6: #949494;
+        --gray1: #1b1b1b;
+        --gray2: #2b2b2b;
+        --gray3: #3b3b3b;
+        --gray4: #4b4b4b;
 
         --inactive: #70757a;
         --text: #3c4043;
@@ -38,7 +36,5 @@
         --green: #34a853;
         --blue: #4285f4;
         --highlight: #1a73e8;
-
-        /* font-family: "Google Sans", Roboto, Arial, sans-serif; */
     }
 </style>
