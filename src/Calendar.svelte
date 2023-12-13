@@ -41,8 +41,7 @@
 
     const onClick = e => {
         if (select.day == e.target.innerText) {
-            select.day = null;
-            select.row = null;
+            select.day = select.row = null;
         } else {
             select.day = Number.parseInt(e.target.innerText);
             select.row = Math.min(Math.floor(e.target.id / 7) + 3, 6);
@@ -50,7 +49,7 @@
     };
 </script>
 
-<!-- <svelte:window on:keydown={handler} /> -->
+0<!-- <svelte:window on:keydown={handler} /> -->
 
 <div class="container" on:wheel={onWheel} bind:clientHeight={client.height} bind:clientWidth={client.width}>
     <div class="title">
