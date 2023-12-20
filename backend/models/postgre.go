@@ -15,7 +15,7 @@ const (
 	host     = "192.168.1.10"
 	port     = 5432
 	user     = "postgres"
-	password = "postgresql"
+	password = "postgresql" // TODO: Maybe hide me ?
 	dbname   = "calendar"
 )
 
@@ -51,7 +51,7 @@ func Setup() {
 			panic(err)
 		}
 		if _, err := DB.Exec(string(query)); err != nil {
-			fmt.Println("No setup required.")
+			fmt.Println("Error while setting up database, make sure its empty.")
 			return
 		}
 	}
