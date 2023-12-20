@@ -63,9 +63,9 @@
 
     <div class="calendar-grid" style="grid-template-rows: 3cqh repeat({isWideScreen ? 7 : 5}, 1fr);">
         <div class="corner" />
-        {#each weekdays as w, i}
+        {#each [1, 2, 3, 4, 5, 6, 0] as n, i}
             <div class="weekday">
-                <div class={i == date.getDay() - 1 && !select.offset && "current"}>{stringCutOff(w)}</div>
+                <div class={n == date.getDay() && !select.offset && "current"}>{stringCutOff(weekdays[i])}</div>
             </div>
         {/each}
         {#each [2, 3, 4, 5, 6] as n, i}
