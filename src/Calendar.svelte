@@ -1,7 +1,10 @@
 <script lang="ts">
     import Record from "./Record.svelte";
 
+    // const tempDate = new Date();
+    // let date = new Date(tempDate.getFullYear(), tempDate.getMonth() + 7, tempDate.getDate() - 10);
     let date = new Date();
+
     let select = { day: 0, row: 0, offset: 0 };
     let client = { width: 0, height: 0 };
     const cutoff = 1600;
@@ -18,12 +21,12 @@
     };
 
     $: weekdays = new Array(7).fill(0).map((_, i) => {
-        return new Date(null, null, i + 1).toLocaleDateString("en-EN", { weekday: "long" });
+        return new Date(null, null, i).toLocaleDateString("en-EN", { weekday: "long" });
     });
 
     $: week = {
-        current: Math.floor((current.day + date.getDate()) / 7),
-        month: Math.ceil((new Date(current.year, current.month, current.day).getTime() - new Date(current.year, 0, 1).getTime() + 86400000) / 86400000 / 7),
+        current: Math.floor((current.day - 1 + date.getDate()) / 7),
+        month: Math.ceil((new Date(current.year, current.month, current.day).getTime() - new Date(current.year, 0, 0).getTime() + 86400000) / 86400000 / 7),
     };
 
     $: isWideScreen = client.width >= cutoff && select.row ? true : false;
@@ -49,7 +52,7 @@
     };
 </script>
 
-0<!-- <svelte:window on:keydown={handler} /> -->
+<!-- <svelte:window on:keydown={handler} /> -->
 
 <div class="container" on:wheel={onWheel} bind:clientHeight={client.height} bind:clientWidth={client.width}>
     <div class="title">
@@ -61,20 +64,24 @@
         {/each}
     </div>
 
+    <!-- <h2>current.day:{current.day} - week.month:{week.month}</h2> -->
+
     <div class="calendar-grid" style="grid-template-rows: 3cqh repeat({isWideScreen ? 7 : 5}, 1fr);">
         <div class="corner" />
-        {#each [1, 2, 3, 4, 5, 6, 0] as n, i}
+        {#each [1, 2, 3, 4, 5, 6, 0] as i}
             <div class="weekday">
-                <div class={n == date.getDay() && !select.offset && "current"}>{stringCutOff(weekdays[i])}</div>
+                <div class={i == date.getDay() && !select.offset && "current"}>{stringCutOff(weekdays[i])}</div>
             </div>
         {/each}
-        {#each [2, 3, 4, 5, 6] as n, i}
-            <div class="week" style="grid-row: {isWideScreen && select.row <= n ? n + 2 : n}/{isWideScreen && select.row <= n ? n + 2 : n};">
+
+        {#each Array(5) as _, i}
+            <div class="week" style="grid-row: {isWideScreen && select.row <= i + 2 ? i + 4 : i + 2}/{isWideScreen && select.row <= i + 2 ? i + 4 : i + 2};">
                 <div class={i == week.current && !select.offset && "current"}>
-                    {week.month + i}
+                    {Math.max(week.month, 1) + i}
                 </div>
             </div>
         {/each}
+
         {#each Array(35) as _, i}
             <div class="day">
                 {#if i < current.day}
@@ -82,7 +89,7 @@
                         {previous.days - current.day + i + 1}
                     </div>
                 {:else if i < current.day + current.days}
-                    {#if i + 1 - current.day == date.getDate() && i + 1 - current.day == select.day && !select.offset}
+                    {#if i + 1 - current.day == date.getDate() && i - 1 - current.day == select.day && !select.offset}
                         <div id={i.toString()} class="selected current" on:click={onClick}>
                             {i + 1 - current.day}
                         </div>
@@ -106,6 +113,7 @@
                 {/if}
             </div>
         {/each}
+
         {#if isWideScreen}
             <Record style="grid-row: {select.row} / {select.row + 2}; grid-column: 1 / 9;" />
         {/if}
