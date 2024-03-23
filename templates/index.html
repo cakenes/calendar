@@ -1,0 +1,14 @@
+{{ define "index" }}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Index</title>
+        <script src="https://unpkg.com/htmx.org@latest"></script>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body id="root-body">
+        {{ template "header" . }}
+        {{ template "calendar" . }}
+    </body>
+</html>
+{{ end }}
