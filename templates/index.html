@@ -1,18 +1,20 @@
 {{ define "index" }}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <title>Index</title>
         <script src="https://unpkg.com/htmx.org@latest"></script>
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Press+Start+2P&display=swap"
+        />
     </head>
     <body id="root-body">
-        <div class="header" hx-get="/header" hx-trigger="load">
-            {{ template "header" . }}
-        </div>
-        <div class="calendar" hx-post="/calendar" hx-trigger="load">
-            {{ template "calendar" . }}
-        </div>
+        <!-- <div class="header" hx-get="/header" hx-trigger="load">{{ template "header" . }}</div> -->
+        <div class="calendar" hx-post="/calendar" hx-trigger="load">{{ template "calendar" . }}</div>
     </body>
 </html>
 {{ end }}

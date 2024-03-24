@@ -1,4 +1,7 @@
 body {
+    font-family: 'Montserrat', 'Google Sans', Roboto, Arial, sans-serif;
+    font-weight: 100;
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -53,6 +56,18 @@ div {
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+
+    & :is(:nth-child(2), :nth-child(6)) {
+        font-size: 1.5em;
+    }
+
+    & :is(:nth-child(3), :nth-child(5)) {
+        font-size: 2em;
+    }
+
+    & :is(:nth-child(4)) {
+        font-size: 2.5em;
+    }
 }
 
 .month,
@@ -65,7 +80,6 @@ div {
     color: var(--inactive);
 
     &:hover {
-        background-color: blue;
         cursor: pointer;
     }
 }
@@ -75,7 +89,8 @@ div {
     display: grid;
     grid-template-rows: 3cqh repeat(6, 1fr);
     grid-template-columns: 2cqw repeat(7, 1fr);
-    row-gap: min(0.4cqh, 0.4cqw);
+    column-gap: 0.2cqw;
+    row-gap: 0.2cqw;
     margin-left: -2cqw;
 }
 
@@ -87,22 +102,22 @@ div {
 }
 
 .week {
-    font-size: 1.5em;
+    font-size: 2em;
     justify-content: center;
     align-items: center;
+    color: var(--inactive);
 }
 
 .prev-day,
 .day,
 .next-day {
-    font-size: 1.5em;
-    justify-content: center;
-    align-items: center;
+    font-size: 5em;
+    align-items: flex-end;
     color: var(--inactive);
     background-color: var(--gray3);
+    border-radius: 1cqw;
 
     &:hover {
-        background-color: blue;
         cursor: pointer;
     }
 }
@@ -110,9 +125,9 @@ div {
 .prev-day,
 .next-day {
     background-color: var(--gray2);
-    color: #ccc;
 }
 
 .current {
-    color: red;
+    font-weight: 200 !important;
+    color: var(--blue) !important;
 }

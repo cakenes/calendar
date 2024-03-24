@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"main/models"
+	// "main/models"
 	"main/routes"
 	"net/http"
 	"text/template"
@@ -20,10 +20,10 @@ func (t *TemplateRenderer) Render(w http.ResponseWriter, name string, data inter
 }
 
 func main() {
-	models.Connect()
-	models.Setup()
+	// models.Connect()
+	// models.Setup()
 
-	defer models.DB.Close()
+	// defer models.DB.Close()
 
 	routes.Setup()
 	//

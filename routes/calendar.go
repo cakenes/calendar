@@ -38,8 +38,9 @@ func calendar(w http.ResponseWriter, r *http.Request) {
 	_, currentWeek := now.ISOWeek()
 
 	offsetTime := now.AddDate(0, monthOffset, 0)
-	year, month, _ := offsetTime.Date()
+	year, _, _ := offsetTime.Date()
 
+	months := controllers.GetMonths(now, monthOffset)
 	weekdays := controllers.Weekdays(weekdayOffset)
 	weeks := controllers.WeekNumbers(now, weekdayOffset, monthOffset)
 	prevDays := controllers.DaysFromPreviousMonth(now, weekdayOffset, monthOffset)
@@ -52,14 +53,13 @@ func calendar(w http.ResponseWriter, r *http.Request) {
 		"offsetNext":  monthOffset + 1,
 		"currentDay":  currentDay,
 		"currentWeek": currentWeek,
-
-		"month":    month,
-		"year":     year,
-		"weekdays": weekdays,
-		"weeks":    weeks,
-		"prevDays": prevDays,
-		"days":     days,
-		"nextDays": nextDays,
+		"months":      months,
+		"year":        year,
+		"weekdays":    weekdays,
+		"weeks":       weeks,
+		"prevDays":    prevDays,
+		"days":        days,
+		"nextDays":    nextDays,
 	}
 
 	if err := renderer.Render(w, "calendar", data); err != nil {

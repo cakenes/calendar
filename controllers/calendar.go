@@ -28,7 +28,7 @@ func WeekNumbers(now time.Time, startDay, monthOffset int) map[int]int {
 		weekNumbers[i] = week + i - 2
 	}
 
-	yearWeeks := weeksInYear(year) // Rolling over to the next year
+	yearWeeks := weeksInYear(year)
 	for i := 2; i <= 7; i++ {
 		if weekNumbers[i] > yearWeeks {
 			weekNumbers[i] = weekNumbers[i] - yearWeeks
@@ -81,4 +81,20 @@ func DaysFromNextMonth(prev, current int) []int {
 		daysFromNextMonth[i] = i + 1
 	}
 	return daysFromNextMonth
+}
+
+func GetMonths(now time.Time, monthOffset int) map[int]string {
+	now = now.AddDate(0, monthOffset, 0)
+	_, month, _ := now.Date()
+	months := []string{
+		"January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December",
+	}
+	adjustedMonths := append(months[month-1:], months[:month-1]...)
+	monthMap := make(map[int]string)
+	for i, m := range adjustedMonths[:5] {
+		monthMap[i-2+monthOffset] = m
+	}
+
+	return monthMap
 }
