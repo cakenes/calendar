@@ -7,10 +7,10 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
     <body id="root-body">
-        <div class="header">
+        <div class="header" hx-get="/header" hx-trigger="load">
             {{ template "header" . }}
         </div>
-        <div class="calendar" hx-get="/calendar" hx-trigger="load">
+        <div class="calendar" hx-post="/calendar" hx-trigger="load">
             {{ template "calendar" . }}
         </div>
     </body>

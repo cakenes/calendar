@@ -5,13 +5,27 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    --gray1: #1b1b1b;
+    --gray2: #2b2b2b;
+    --gray3: #3b3b3b;
+    --gray4: #4b4b4b;
+
+    --inactive: #70757a;
+    --text: #3c4043;
+
+    --red: #ea4335;
+    --yellow: #fbbc05;
+    --green: #34a853;
+    --blue: #4285f4;
+    --highlight: #1a73e8;
 }
 
 body {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    justify-content:    center;
+    justify-content: center;
     align-items: center;
     margin: 0;
 }
@@ -29,8 +43,31 @@ div {
 .calendar-container {
     flex: 1;
     width: -webkit-fill-available;
-    padding: 5dvw;
-    background-color: #f0f0f0;
+    padding: 8cqw;
+    background-color: var(--gray1);
+}
+
+.calendar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.month,
+.month-prev,
+.month-next {
+    flex: 1;
+    font-size: 2em;
+    justify-content: center;
+    align-items: center;
+    color: var(--inactive);
+
+    &:hover {
+        background-color: blue;
+        cursor: pointer;
+    }
 }
 
 .calendar-grid {
@@ -38,16 +75,15 @@ div {
     display: grid;
     grid-template-rows: 3cqh repeat(6, 1fr);
     grid-template-columns: 2cqw repeat(7, 1fr);
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #fff;
+    row-gap: min(0.4cqh, 0.4cqw);
+    margin-left: -2cqw;
 }
 
 .weekday {
     font-size: 1.5em;
     justify-content: center;
     align-items: center;
+    color: var(--inactive);
 }
 
 .week {
@@ -56,13 +92,24 @@ div {
     align-items: center;
 }
 
-.prev-day, .day, .next-day {
+.prev-day,
+.day,
+.next-day {
     font-size: 1.5em;
     justify-content: center;
     align-items: center;
+    color: var(--inactive);
+    background-color: var(--gray3);
+
+    &:hover {
+        background-color: blue;
+        cursor: pointer;
+    }
 }
 
-.prev-day, .next-day {
+.prev-day,
+.next-day {
+    background-color: var(--gray2);
     color: #ccc;
 }
 
