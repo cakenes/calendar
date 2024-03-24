@@ -103,7 +103,7 @@ func main() {
 	defer models.DB.Close()
 
 	renderer = &TemplateRenderer{
-		templates: template.Must(template.ParseGlob("templates/*.gohtml")),
+		templates: template.Must(template.ParseGlob("templates/*.html")),
 	}
 
 	router := http.NewServeMux()
