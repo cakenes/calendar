@@ -21,17 +21,52 @@ div {
     flex-direction: column;
 }
 
+.calendar {
+    flex: 1;
+    width: -webkit-fill-available;
+}
+
 .calendar-container {
     flex: 1;
     width: -webkit-fill-available;
-    padding: 10dvh;
+    padding: 5dvw;
     background-color: #f0f0f0;
 }
 
 .calendar-grid {
     flex: 1;
+    display: grid;
+    grid-template-rows: 3cqh repeat(6, 1fr);
+    grid-template-columns: 2cqw repeat(7, 1fr);
     border: 1px solid #000;
     border-radius: 5px;
     padding: 10px;
     background-color: #fff;
+}
+
+.weekday {
+    justify-content: center;
+    align-items: center;
+}
+
+.week {
+    justify-content: center;
+    align-items: center;
+}
+
+.prev-day, .day, .next-day {
+    justify-content: center;
+    align-items: center;
+}
+
+.prev-day, .next-day {
+    color: #ccc;
+}
+
+.current-day {
+    color: red;
+}
+
+.current-week {
+    color: red;
 }
