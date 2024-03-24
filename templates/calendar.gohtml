@@ -1,0 +1,39 @@
+{{ define "calendar" }}
+<div class="calendar-container">
+    <div class="calendar-grid">
+        <div class="corner"></div>
+        {{ range .weekdays }}
+            <div class="weekday">{{ . }}</div>
+        {{ end }}
+        {{ range $key, $value := .weeks }}
+            {{ if eq $value $.week }}
+                <div class="week current-week" style="grid-row: {{$key}};">{{$value}}</div>
+            {{ else }}
+            <div class="week" style="grid-row: {{$key}};">{{$value}}</div>
+            {{ end }}
+        {{ end }}
+          {{ range .prevDays }}
+            <div class="prev-day">{{ . }}</div>
+        {{ end }}
+        {{ range .days }}
+  {{ if eq . $.day }}
+    <div class="day current-day">{{ . }}</div>
+  {{ else }}
+    <div class="day">{{ . }}</div>
+  {{ end }}
+{{ end }}
+       {{ range .nextDays }}
+            <div class="next-day">{{ . }}</div>
+        {{ end }}
+
+    </div>
+</div>
+{{ end }}
+
+
+
+
+
+
+
+
