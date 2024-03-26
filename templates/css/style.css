@@ -1,0 +1,166 @@
+body {
+    font-family: 'Montserrat', 'Google Sans', Roboto, Arial, sans-serif;
+    font-weight: 100;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    --gray1: #1b1b1b;
+    --gray2: #2b2b2b;
+    --gray3: #3b3b3b;
+    --gray7: #7b7b7b;
+
+    --red: #ff6961;
+    --blue: #4285f4;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: var(--gray1);
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: -webkit-fill-available;
+
+    flex-direction: row;
+    font-size: 1.5cqw;
+    color: var(--gray7);
+}
+
+.header-title {
+    flex: 1;
+    padding-left: 4cqw;
+    justify-content: center;
+    text-align: center;
+    font-size: 2cqh;
+    color: var(--gray3);
+}
+
+.header-theme {
+    width: 4cqw;
+    text-align: center;
+    font-size: min(4cqw, 4cqh);
+}
+
+.calendar {
+    flex: 1;
+    width: -webkit-fill-available;
+}
+
+.calendar-container {
+    flex: 1;
+    padding: min(8cqw, 8cqh);
+    padding-top: 0cqw;
+}
+
+.calendar-nav-year {
+    align-self: center;
+    font-size: 2cqh;
+    color: var(--gray7);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.calendar-nav-month {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+
+    & :is(:nth-child(1), :nth-child(5)) {
+        flex: 2;
+        font-size: 2cqh;
+    }
+
+    & :is(:nth-child(2), :nth-child(4)) {
+        flex: 2;
+        font-size: 3cqh;
+    }
+
+    & :is(:nth-child(3)) {
+        flex: 3;
+        font-size: 4cqh;
+    }
+}
+
+.month {
+    justify-content: center;
+    align-items: center;
+    color: var(--gray7);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-rows: 3cqh repeat(6, 1fr);
+    grid-template-columns: 2cqw repeat(7, 1fr);
+    column-gap: 0.2cqw;
+    row-gap: 0.2cqw;
+    margin-left: -2cqw;
+
+    & > :is(.weekday):nth-child(8n) {
+        color: var(--red);
+    }
+
+    & > :is(.prev-day, .day, .next-day):nth-child(7n) {
+        color: var(--red);
+    }
+}
+
+.weekday {
+    font-size: 2cqh;
+    justify-content: end;
+    align-items: center;
+    color: var(--gray7);
+}
+
+.week {
+    font-size: 2cqh;
+    justify-content: center;
+    align-items: end;
+    padding-right: 0.2cqw;
+    color: var(--gray7);
+}
+
+.prev-day,
+.day,
+.next-day {
+    font-size: 5cqh;
+    align-items: end;
+    color: var(--gray7);
+    background-color: var(--gray3);
+    border-radius: 1cqw;
+    overflow: hidden;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.prev-day,
+.next-day {
+    background-color: var(--gray2);
+}
+
+.current {
+    font-weight: 200 !important;
+    color: var(--blue) !important;
+}

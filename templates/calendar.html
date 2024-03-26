@@ -1,0 +1,44 @@
+{{ define "calendar" }}
+<div class="calendar-container">
+    <div class="calendar-nav">
+        {{ if eq $.year $.currentYear }}
+        <div class="calendar-nav-year current" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": 0}'>
+            {{ .year }}
+        </div>
+        {{ else }}
+        <div class="calendar-nav-year" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": 0}'>
+            {{ .year }}
+        </div>
+        {{ end }}
+        <div class="calendar-nav-month">
+            {{ range $key, $value := .months }} {{ if eq $key 0 }}
+            <div class="month current" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>
+                {{ $value }}
+            </div>
+            {{ else }}
+            <div class="month" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>
+                {{ $value }}
+            </div>
+            {{ end }} {{ end }}
+        </div>
+    </div>
+    <div class="calendar-grid">
+        <div class="corner"></div>
+        {{ range .weekdays }}
+        <div class="weekday">{{ . }}</div>
+        {{ end }} {{ range $key, $value := .weeks }} {{ if and (eq $value $.currentWeek) (eq $.offset 0) }}
+        <div class="week current" style="grid-row: {{$key}};">{{$value}}</div>
+        {{ else }}
+        <div class="week" style="grid-row: {{$key}};">{{$value}}</div>
+        {{ end }} {{ end }} {{ range .prevDays }}
+        <div class="prev-day">{{ . }}</div>
+        {{ end }} {{ range .days }} {{ if and (eq . $.currentDay) (eq $.offset 0) }}
+        <div class="day current">{{ . }}</div>
+        {{ else }}
+        <div class="day">{{ . }}</div>
+        {{ end }} {{ end }} {{ range .nextDays }}
+        <div class="next-day">{{ . }}</div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
