@@ -34,25 +34,22 @@ func calendar(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
-	_, _, currentDay := now.Date()
+	currentYear, _, currentDay := now.Date()
 	_, currentWeek := now.ISOWeek()
 
-	offsetTime := now.AddDate(0, monthOffset, 0)
-	year, _, _ := offsetTime.Date()
-
+	year := controllers.GetYear(now, monthOffset)
 	months := controllers.GetMonths(now, monthOffset)
-	weekdays := controllers.Weekdays(weekdayOffset)
-	weeks := controllers.WeekNumbers(now, weekdayOffset, monthOffset)
-	prevDays := controllers.DaysFromPreviousMonth(now, weekdayOffset, monthOffset)
-	days := controllers.DaysFromCurrentMonth(now, monthOffset)
-	nextDays := controllers.DaysFromNextMonth(len(prevDays), len(days))
+	weekdays := controllers.GetWeekdays(weekdayOffset)
+	weeks := controllers.GetWeeks(now, weekdayOffset, monthOffset)
+	prevDays := controllers.GetDaysPrev(now, weekdayOffset, monthOffset)
+	days := controllers.GetDaysCurrent(now, monthOffset)
+	nextDays := controllers.GetDaysNext(len(prevDays), len(days))
 
 	data := map[string]interface{}{
 		"offset":      monthOffset,
-		"offsetPrev":  monthOffset - 1,
-		"offsetNext":  monthOffset + 1,
 		"currentDay":  currentDay,
 		"currentWeek": currentWeek,
+		"currentYear": currentYear,
 		"months":      months,
 		"year":        year,
 		"weekdays":    weekdays,

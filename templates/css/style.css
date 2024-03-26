@@ -50,23 +50,29 @@ div {
     background-color: var(--gray1);
 }
 
-.calendar-nav {
+.calendar-nav-year {
+    align-self: center;
+    font-size: 1.5em;
+    color: var(--inactive);
+}
+
+.calendar-nav-month {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
 
-    & :is(:nth-child(2), :nth-child(6)) {
+    & :is(:nth-child(1), :nth-child(5)) {
         font-size: 1.5em;
     }
 
-    & :is(:nth-child(3), :nth-child(5)) {
+    & :is(:nth-child(2), :nth-child(4)) {
         font-size: 2em;
     }
 
-    & :is(:nth-child(4)) {
-        font-size: 2.5em;
+    & :is(:nth-child(3)) {
+        font-size: 3em;
     }
 }
 

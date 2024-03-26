@@ -1,18 +1,23 @@
 {{ define "calendar" }}
 <div class="calendar-container">
     <div class="calendar-nav">
-        <div class="month-prev" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": "{{ .offsetPrev }}"}'>
-            Prev
-        </div>
-        {{ range $key, $value := .months }} {{ if eq $key 0 }}
-        <div class="month current" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>
-            {{ $value }}
-        </div>
+        {{ if eq $.year $.currentYear }}
+        <div class="calendar-nav-year current">{{ .year }}</div>
         {{ else }}
-        <div class="month" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>{{ $value }}</div>
-        {{ end }} {{ end }}
-        <div class="month-next" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": "{{ .offsetNext }}"}'>
-            Next
+        <div class="calendar-nav-year" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": 0}'>
+            {{ .year }}
+        </div>
+        {{ end }}
+        <div class="calendar-nav-month">
+            {{ range $key, $value := .months }} {{ if eq $key 0 }}
+            <div class="month current" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>
+                {{ $value }}
+            </div>
+            {{ else }}
+            <div class="month" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": {{ $key }}}'>
+                {{ $value }}
+            </div>
+            {{ end }} {{ end }}
         </div>
     </div>
     <div class="calendar-grid">
