@@ -2,7 +2,9 @@
 <div class="calendar-container">
     <div class="calendar-nav">
         {{ if eq $.year $.currentYear }}
-        <div class="calendar-nav-year current">{{ .year }}</div>
+        <div class="calendar-nav-year current" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": 0}'>
+            {{ .year }}
+        </div>
         {{ else }}
         <div class="calendar-nav-year" hx-post="/calendar" hx-target=".calendar" hx-vals='{"offset": 0}'>
             {{ .year }}
